@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="470" viewBox="0 0 1600 470" role="img" aria-labelledby="title desc">
+  <title id="title">잠입 액션 RPG 핵심 구현 수치</title>
+  <desc id="desc">커버 탐지 3지점, 양발 IK 트레이스 2개, AI 상태 7개, Physical Surface 6종</desc>
+  <rect width="1600" height="470" rx="28" fill="#111827"/>
+  <text x="70" y="66" fill="#e879f9" font-family="Pretendard, Noto Sans KR, Segoe UI, sans-serif" font-size="20" font-weight="600" letter-spacing="3">IMPLEMENTATION SNAPSHOT</text>
+
+  <g font-family="Pretendard, Noto Sans KR, Segoe UI, sans-serif">
+    <g transform="translate(70 105)">
+      <rect width="340" height="285" rx="22" fill="#1f2937"/>
+      <rect width="340" height="8" rx="4" fill="#d946ef"/>
+      <text x="34" y="102" fill="#f9fafb" font-size="72" font-weight="700">3</text>
+      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">커버 탐지 지점</text>
+      <text x="34" y="200" fill="#aab4c4" font-size="20">중앙 · 왼쪽 · 오른쪽</text>
+      <text x="34" y="235" fill="#aab4c4" font-size="20">모두 히트해야 진입</text>
+    </g>
+
+    <g transform="translate(445 105)">
+      <rect width="340" height="285" rx="22" fill="#1f2937"/>
+      <rect width="340" height="8" rx="4" fill="#a855f7"/>
+      <text x="34" y="102" fill="#f9fafb" font-size="72" font-weight="700">2</text>
+      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">발 IK 트레이스</text>
+      <text x="34" y="200" fill="#aab4c4" font-size="20">양발 소켓에서 바닥 검사</text>
+      <text x="34" y="235" fill="#aab4c4" font-size="20">골반·발 오프셋 계산</text>
+    </g>
+
+    <g transform="translate(820 105)">
+      <rect width="340" height="285" rx="22" fill="#1f2937"/>
+      <rect width="340" height="8" rx="4" fill="#8b5cf6"/>
+      <text x="34" y="102" fill="#f9fafb" font-size="72" font-weight="700">7</text>
+      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">AI 상태</text>
+      <text x="34" y="200" fill="#aab4c4" font-size="20">대기 · 접근 · 행동 · 순찰</text>
+      <text x="34" y="235" fill="#aab4c4" font-size="20">피격 · 회피 · 사망</text>
+    </g>
+
+    <g transform="translate(1195 105)">
+      <rect width="340" height="285" rx="22" fill="#1f2937"/>
+      <rect width="340" height="8" rx="4" fill="#7c3aed"/>
+      <text x="34" y="102" fill="#f9fafb" font-size="72" font-weight="700">6</text>
+      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">지면 유형</text>
+      <text x="34" y="200" fill="#aab4c4" font-size="20">흘 · 바위 · 콘크리트</text>
+      <text x="34" y="235" fill="#aab4c4" font-size="20">물 · 계단 · 나무</text>
+    </g>
+  </g>
+</svg>
