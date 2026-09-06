@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="470" viewBox="0 0 1600 470" role="img" aria-labelledby="title desc">
-  <title id="title">잠입 액션 RPG 핵심 구현 수치</title>
-  <desc id="desc">커버 탐지 3지점, 양발 IK 트레이스 2개, AI 상태 7개, Physical Surface 6종</desc>
+  <title id="title">잠입 액션 RPG 코드 구성</title>
+  <desc id="desc">코드에 정의한 커버 탐지 3지점, 양발 IK 트레이스 2개, AI 상태 종류 7개, Physical Surface 6종. 성능 측정 결과가 아닙니다.</desc>
   <rect width="1600" height="470" rx="28" fill="#111827"/>
-  <text x="70" y="66" fill="#e879f9" font-family="Pretendard, Noto Sans KR, Segoe UI, sans-serif" font-size="20" font-weight="600" letter-spacing="3">IMPLEMENTATION SNAPSHOT</text>
+  <text x="70" y="66" fill="#e879f9" font-family="Pretendard, Noto Sans KR, Segoe UI, sans-serif" font-size="20" font-weight="600">코드 구성 · 탐지 지점과 상태 정의</text>
 
   <g font-family="Pretendard, Noto Sans KR, Segoe UI, sans-serif">
     <g transform="translate(70 105)">
@@ -27,7 +27,7 @@
       <rect width="340" height="285" rx="22" fill="#1f2937"/>
       <rect width="340" height="8" rx="4" fill="#8b5cf6"/>
       <text x="34" y="102" fill="#f9fafb" font-size="72" font-weight="700">7</text>
-      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">AI 상태</text>
+      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">AI 상태 종류</text>
       <text x="34" y="200" fill="#aab4c4" font-size="20">대기 · 접근 · 행동 · 순찰</text>
       <text x="34" y="235" fill="#aab4c4" font-size="20">피격 · 회피 · 사망</text>
     </g>
@@ -36,8 +36,8 @@
       <rect width="340" height="285" rx="22" fill="#1f2937"/>
       <rect width="340" height="8" rx="4" fill="#7c3aed"/>
       <text x="34" y="102" fill="#f9fafb" font-size="72" font-weight="700">6</text>
-      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">지면 유형</text>
-      <text x="34" y="200" fill="#aab4c4" font-size="20">흘 · 바위 · 콘크리트</text>
+      <text x="34" y="158" fill="#f9fafb" font-size="27" font-weight="650">프로젝트 지면 설정</text>
+      <text x="34" y="200" fill="#aab4c4" font-size="20">흙 · 바위 · 콘크리트</text>
       <text x="34" y="235" fill="#aab4c4" font-size="20">물 · 계단 · 나무</text>
     </g>
   </g>
