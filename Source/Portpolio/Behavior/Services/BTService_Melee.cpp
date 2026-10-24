@@ -20,13 +20,20 @@ void UBTService_Melee::TickNode(UBehaviorTreeComponent & OwnerComp, uint8 * Node
 {
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
+	// 적이 죽어 폰이 제거되거나 빙의가 풀린 프레임에도 서비스가 한 번 더 돌 수 있다.
 	AEnemyAIController* controller = Cast<AEnemyAIController>(OwnerComp.GetOwner());
+	if (controller == nullptr)
+		return;
 	ACEnemy_AI* ai = Cast<ACEnemy_AI>(controller->GetPawn());
+	if (ai == nullptr)
+		return;
 
 
 	//
 	UCStateComponent*       state = CHelpers::GetComponent<UCStateComponent>(ai);
 	UCAIBehaviorComponent*  behavior = CHelpers::GetComponent<UCAIBehaviorComponent>(ai);
+	if (state == nullptr || behavior == nullptr)
+		return;
 
 
 	if (state->IsHitMode())

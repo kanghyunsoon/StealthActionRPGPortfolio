@@ -20,11 +20,16 @@ EBTNodeResult::Type UBTTaskNode_Action::ExecuteTask(UBehaviorTreeComponent & Own
 
 
 	AEnemyAIController* controller = Cast<AEnemyAIController>(OwnerComp.GetOwner());
-	ACEnemy_AI* ai = Cast<ACEnemy_AI>(controller->GetPawn());
+	ACEnemy_AI* ai = controller ? Cast<ACEnemy_AI>(controller->GetPawn()) : nullptr;
+	if (ai == nullptr)
+		return EBTNodeResult::Failed;
 
 
 	UCWeaponComponent* weapon = CHelpers::GetComponent<UCWeaponComponent>(ai);
 	CheckNullResult(weapon, EBTNodeResult::Failed);
+	// 무기를 들지 않은 상태면 DoAction이 없다.
+	if (weapon->GetDoAction() == nullptr)
+		return EBTNodeResult::Failed;
 
 	controller->StopMovement();
 	weapon->DoAction();
@@ -41,11 +46,21 @@ void UBTTaskNode_Action::TickTask(UBehaviorTreeComponent & OwnerComp, uint8 * No
 
 
 	AEnemyAIController* controller = Cast<AEnemyAIController>(OwnerComp.GetOwner());
-	ACEnemy_AI* ai = Cast<ACEnemy_AI>(controller->GetPawn());
+	ACEnemy_AI* ai = controller ? Cast<ACEnemy_AI>(controller->GetPawn()) : nullptr;
+	if (ai == nullptr)
+	{
+		FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+		return;
+	}
 
 
 	UCWeaponComponent* weapon = CHelpers::GetComponent<UCWeaponComponent>(ai);
 	UCStateComponent*   state = CHelpers::GetComponent<UCStateComponent>(ai);
+	if (weapon == nullptr || state == nullptr || weapon->GetDoAction() == nullptr)
+	{
+		FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+		return;
+	}
 
 	bool bCheck = true;
 	bCheck &= (state->IsIdleMode());
@@ -70,17 +85,16 @@ EBTNodeResult::Type UBTTaskNode_Action::AbortTask(UBehaviorTreeComponent & Owner
 
 
 	AEnemyAIController* controller = Cast<AEnemyAIController>(OwnerComp.GetOwner());
-	ACEnemy_AI* ai = Cast<ACEnemy_AI>(controller->GetPawn());
+	ACEnemy_AI* ai = controller ? Cast<ACEnemy_AI>(controller->GetPawn()) : nullptr;
 
-
-
-	if (!ai) return EBTNodeResult::Failed;
+	// AbortTask는 Aborted(또는 InProgress)를 돌려줘야 한다. 예전에는 Succeeded를 돌려줘서
+	// 중단된 공격이 성공한 것처럼 처리될 수 있었다.
+	if (!ai) return EBTNodeResult::Aborted;
 
 	UCWeaponComponent* weapon = CHelpers::GetComponent<UCWeaponComponent>(ai);
-	UCStateComponent*   state = CHelpers::GetComponent<UCStateComponent>(ai);
 
-	if (weapon == nullptr)
-		return EBTNodeResult::Failed;
+	if (weapon == nullptr || weapon->GetDoAction() == nullptr)
+		return EBTNodeResult::Aborted;
 
 	bool bBeginAction = weapon->GetDoAction()->GetBeginAction();
 	if (!bBeginAction)
@@ -88,5 +102,5 @@ EBTNodeResult::Type UBTTaskNode_Action::AbortTask(UBehaviorTreeComponent & Owner
 	weapon->GetDoAction()->End_DoAction();
 
 	weapon->GetDoAction()->EnemyIndex =0;
-	return EBTNodeResult::Succeeded;
+	return EBTNodeResult::Aborted;
 }
