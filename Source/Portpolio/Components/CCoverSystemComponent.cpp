@@ -142,7 +142,8 @@ void UCCoverSystemComponent::MoveRight()
 
 		if (bHit)
 		{
-			float DotProduct = FVector::DotProduct(HitResult.ImpactNormal, CoverWallNormal);
+			// 단위 법선끼리의 내적도 부동소수 오차로 1을 살짝 넘으면 acos가 NaN이 된다.
+			float DotProduct = FMath::Clamp(FVector::DotProduct(HitResult.ImpactNormal, CoverWallNormal), -1.0f, 1.0f);
 			float AngleInDegrees = FMath::RadiansToDegrees(acosf(DotProduct));
 			int TruncatedValue = FMath::TruncToInt(AngleInDegrees);
 
@@ -214,7 +215,7 @@ void UCCoverSystemComponent::MoveLeft()
 
 		if (bHit)
 		{
-			float DotProduct = FVector::DotProduct(HitResult.ImpactNormal, CoverWallNormal);
+			float DotProduct = FMath::Clamp(FVector::DotProduct(HitResult.ImpactNormal, CoverWallNormal), -1.0f, 1.0f);
 			float AngleInDegrees = FMath::RadiansToDegrees(acosf(DotProduct));
 			int TruncatedValue = FMath::TruncToInt(AngleInDegrees);
 
@@ -247,7 +248,7 @@ void UCCoverSystemComponent::MoveLeft()
 			}
 			else
 			{
-				bInCoverMovRight = false;
+				bInCoverMovLeft = false;
 			}
 		}
 	}
@@ -422,7 +423,9 @@ void UCCoverSystemComponent::CoverJumpingRightTracer()
 void UCCoverSystemComponent::CoverJumpingLeftTracer()
 {
 	FVector Start, End;
-	CoverJumpRightTraceLocation(Start, End);
+	// 왼쪽 점프 대상은 왼쪽에서 찾아야 한다. 예전에는 오른쪽 트레이스를 그대로 써서
+	// 왼쪽으로 이동 입력을 넣었을 때 오른쪽 커버로 건너뛰었다.
+	CoverJumpLeftTraceLocation(Start, End);
 	FHitResult HitResult;
 
 	FCollisionQueryParams QueryParams;
